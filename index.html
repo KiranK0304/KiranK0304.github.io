@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kiran Kuruvila — ML &amp; Systems Developer</title>
+  <meta name="description" content="Portfolio of Kiran Kuruvila — Data-focused Machine Learning Engineer building intelligent, reliable systems from first principles.">
+  <meta name="author" content="Kiran Kuruvila">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav class="nav" id="main-nav">
+    <a href="#hero">whoami</a>
+    <a href="#projects">projects</a>
+    <a href="#skills">skills</a>
+    <a href="#contact">contact</a>
+    <button class="nav-terminal-btn" id="toggle-terminal" title="Open terminal">&gt;_</button>
+  </nav>
+
+  <!-- ===== Terminal Backdrop ===== -->
+  <div class="terminal-backdrop" id="terminal-backdrop"></div>
+
+  <!-- ===== Floating Terminal (toggled via button) ===== -->
+  <div class="floating-terminal" id="floating-terminal">
+    <div class="floating-terminal-titlebar">
+      <div class="titlebar-dots" id="terminal-close-btn" role="button" tabindex="0">
+        <span></span><span></span><span></span>
+      </div>
+      <span class="floating-terminal-label">terminal</span>
+    </div>
+    <div class="floating-terminal-body">
+      <div class="terminal-output" id="terminal-output">
+        <div class="cmd-response" id="terminal-response">
+          <span class="response-label">Welcome!</span> Type <strong>help</strong> for commands.
+        </div>
+      </div>
+      <div class="terminal-input-bar">
+        <span class="input-prefix">$</span>
+        <input type="text" id="terminal-input" placeholder="type a command..." autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Page Wrapper with Side Panels ===== -->
+  <div class="page-wrapper">
+
+    <!-- LEFT side decorations -->
+    <aside class="side-panel left">
+      <div class="side-deco deco-1"></div>
+      <div class="side-image-slot" id="side-img-1">
+        <span>your image<br>here</span>
+      </div>
+      <div class="side-float-dot dot-a"></div>
+      <div class="side-deco deco-2"></div>
+      <div class="side-float-dot dot-b"></div>
+      <div class="side-deco deco-4"></div>
+    </aside>
+
+    <!-- ===== Main Terminal Shell ===== -->
+    <div class="page-shell" id="page-shell">
+
+      <!-- Scroll Progress Bar -->
+      <div class="scroll-progress" id="scroll-progress"></div>
+
+      <!-- Title Bar -->
+      <div class="page-titlebar">
+        <div class="titlebar-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="titlebar-label">kiran@portfolio:~</span>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-content">
+
+        <!-- ===== HERO ===== -->
+        <section id="hero">
+          <div class="prompt"><span class="cmd" data-cmd="whoami">whoami</span></div>
+          <div class="output">
+            <h2 id="hero-name" data-text="Kiran Kuruvila" style="visibility:hidden;">Kiran Kuruvila</h2>
+          </div>
+
+          <div class="prompt"><span class="cmd" data-cmd="role">role</span></div>
+          <div class="output">
+            <p class="subtitle">Machine Learning · Systems · Infrastructure</p>
+          </div>
+
+          <div class="prompt"><span class="cmd" data-cmd="philosophy">philosophy</span></div>
+          <div class="output">
+            <p class="philosophy">Building intelligent systems that are structured, reliable, and grounded in first principles.<span class="cursor"></span></p>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== ABOUT ===== -->
+        <section id="about">
+          <div class="prompt"><span class="cmd" data-cmd="about">about</span></div>
+          <div class="output">
+            <p>Data-focused Machine Learning Engineer with a quantitative background in economics, statistics, and applied mathematics — including linear algebra, probability, and calculus.</p>
+            <p>Experienced in building end-to-end ML pipelines covering data ingestion, feature engineering, model training, and deployment. Skilled in deep learning architectures (transformers, RNNs, CNNs), reinforcement learning, and agentic LLM systems using LangGraph.</p>
+            <p>Comfortable working across the full stack from raw data to production-ready models on AWS infrastructure.</p>
+          </div>
+
+          <div class="prompt"><span class="cmd" data-cmd="interests">interests</span></div>
+          <div class="output">
+            <ul>
+              <li>Transformers and sequence models</li>
+              <li>Reinforcement learning</li>
+              <li>Agent-based systems</li>
+              <li>Reliability and validation in ML systems</li>
+            </ul>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== EDUCATION ===== -->
+        <section id="education">
+          <div class="prompt"><span class="cmd" data-cmd="education">education</span></div>
+          <div class="output">
+            <div class="edu-entry">
+              <div class="edu-row">
+                <span class="edu-degree">Master of Computer Applications (MCA)</span>
+                <span class="edu-year">2025 – 2027</span>
+              </div>
+              <div class="edu-school">Marian College, Kuttikkanam, Kerala</div>
+            </div>
+            <div class="edu-entry">
+              <div class="edu-row">
+                <span class="edu-degree">Bachelor of Arts in Economics</span>
+                <span class="edu-year">2022 – 2025</span>
+              </div>
+              <div class="edu-school">MG University, Kottayam, Kerala</div>
+            </div>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== PROJECTS ===== -->
+        <section id="projects">
+          <div class="prompt"><span class="cmd" data-cmd="ls ~/projects">ls ~/projects</span></div>
+          <div class="output">
+            <div class="project-grid">
+
+              <div class="project-card" data-project="trading">
+                <div class="project-header">
+                  <span class="project-name">Agentic Trading System</span>
+                  <span class="project-tech">LangGraph, Pydantic</span>
+                </div>
+                <p class="project-desc">Multi-agent LLM system with structured decision workflows and deterministic flows.</p>
+              </div>
+
+              <div class="project-card" data-project="gpt">
+                <div class="project-header">
+                  <span class="project-name">GPT-style Transformer</span>
+                  <span class="project-tech">PyTorch, scikit-learn</span>
+                </div>
+                <p class="project-desc">Decoder-only Transformer learning arithmetic as sequence prediction.</p>
+              </div>
+
+              <div class="project-card" data-project="nanogpt">
+                <div class="project-header">
+                  <span class="project-name">NanoGPT</span>
+                  <span class="project-tech">PyTorch</span>
+                </div>
+                <p class="project-desc">Character-level GPT with causal self-attention, trained on Tiny Shakespeare.</p>
+              </div>
+
+              <div class="project-card" data-project="aws">
+                <div class="project-header">
+                  <span class="project-name">AWS Deployment</span>
+                  <span class="project-tech">Django, MySQL</span>
+                </div>
+                <p class="project-desc">EC2 + Nginx, RDS, EFS, EKS — production-grade cloud infra.</p>
+              </div>
+
+              <div class="project-card" data-project="pong">
+                <div class="project-header">
+                  <span class="project-name">RL Pong Agent</span>
+                  <span class="project-tech">PyTorch</span>
+                </div>
+                <p class="project-desc">Reinforcement learning agent with reward shaping and policy optimization.</p>
+              </div>
+
+              <div class="project-card" data-project="nn">
+                <div class="project-header">
+                  <span class="project-name">Neural Network Foundations</span>
+                  <span class="project-tech">Python, PyTorch</span>
+                </div>
+                <p class="project-desc">Micrograd autograd engine, RNNs, GRUs, CNNs from scratch.</p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== TEACHING ===== -->
+        <section id="teaching">
+          <div class="prompt"><span class="cmd" data-cmd="teaching">teaching</span></div>
+          <div class="output">
+            <p>Conducted peer-level sessions explaining neural network fundamentals from first principles:</p>
+            <ul class="teaching-list">
+              <li>Neuron activation and firing behavior through mathematical formulations</li>
+              <li>Gradient descent, backpropagation, and learning dynamics</li>
+              <li>Focused on building conceptual clarity rather than black-box usage</li>
+            </ul>
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== SKILLS ===== -->
+        <section id="skills">
+          <div class="prompt"><span class="cmd" data-cmd="skills --list">skills --list</span></div>
+          <div class="output">
+
+            <div class="skill-group">
+              <div class="group-label">Languages</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">SQL</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Frameworks</div>
+              <div class="skill-tags">
+                <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">NumPy</span>
+                <span class="skill-tag">Pandas</span>
+                <span class="skill-tag">scikit-learn</span>
+                <span class="skill-tag">Django</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Machine Learning</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Transformers</span>
+                <span class="skill-tag">CNNs</span>
+                <span class="skill-tag">RNNs</span>
+                <span class="skill-tag">Reinforcement Learning</span>
+                <span class="skill-tag">Feature Engineering</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">LLM Systems</div>
+              <div class="skill-tags">
+                <span class="skill-tag">LangGraph</span>
+                <span class="skill-tag">Prompt Engineering</span>
+                <span class="skill-tag">Agent Workflows</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Data Engineering</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Data Pipelines</span>
+                <span class="skill-tag">ETL</span>
+                <span class="skill-tag">Data Processing</span>
+                <span class="skill-tag">Data Warehouse Concepts</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">MLOps</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Model Deployment</span>
+                <span class="skill-tag">MLflow</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Cloud</div>
+              <div class="skill-tags">
+                <span class="skill-tag">AWS EC2</span>
+                <span class="skill-tag">RDS</span>
+                <span class="skill-tag">EFS</span>
+                <span class="skill-tag">EKS</span>
+                <span class="skill-tag">Nginx</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Mathematics</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Probability</span>
+                <span class="skill-tag">Statistics</span>
+                <span class="skill-tag">Linear Algebra</span>
+                <span class="skill-tag">Calculus</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Tools</div>
+              <div class="skill-tags">
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">VS Code</span>
+                <span class="skill-tag">Jupyter Notebook</span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- ===== FOOTER / CONTACT ===== -->
+        <section id="contact" class="page-footer">
+          <div class="prompt"><span class="cmd" data-cmd="contact">contact</span></div>
+          <div class="output" style="padding-left:0;">
+            <div class="footer-links">
+              <a href="mailto:kirankuruvila03@gmail.com" id="email-link">✉ kirankuruvila03@gmail.com</a>
+              <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer" id="github-link">⌥ github.com/KiranK0304</a>
+            </div>
+            <div class="divider"></div>
+            <p class="tagline">"Built with clarity, not noise."</p>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Status Bar -->
+      <div class="status-bar" id="status-bar">
+        <div class="status-section">
+          <span class="status-dot"></span>
+          <span>section:</span>
+          <span class="status-label" id="status-section-name">hero</span>
+          <span class="status-separator">│</span>
+          <span>scroll:</span>
+          <span class="status-label" id="status-scroll-pct">0%</span>
+        </div>
+        <div class="status-section">
+          <span>kerala, india</span>
+          <span class="status-separator">│</span>
+          <span id="status-time">00:00</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT side decorations -->
+    <aside class="side-panel right">
+      <div class="side-float-dot dot-c"></div>
+      <div class="side-deco deco-3"></div>
+      <div class="side-image-slot" id="side-img-2">
+        <span>your image<br>here</span>
+      </div>
+      <div class="side-deco deco-5"></div>
+      <div class="side-float-dot dot-a"></div>
+      <div class="side-deco deco-1"></div>
+    </aside>
+
+  </div>
+
+  <!-- ===== Project Detail Modal ===== -->
+  <div class="modal-overlay" id="project-modal">
+    <div class="modal-window">
+      <div class="modal-titlebar">
+        <div class="titlebar-dots" id="modal-close" role="button" tabindex="0" aria-label="Close modal">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="modal-title-text" id="modal-title">project detail</span>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
