@@ -428,6 +428,32 @@ document.addEventListener('DOMContentLoaded', () => {
         'Foundational understanding that informs all other ML projects'
       ],
       tech: ['Python', 'PyTorch']
+    },
+    marketdata: {
+      name: 'Real-time Indian Market Data System',
+      tagline: 'Live ticks → reliable candles + indicator validation',
+      description: 'A modular backend system for real-time Indian stock market ingestion and analysis. Streams live market ticks via Upstox WebSockets, aggregates them into 5-minute OHLC candles, and persists the time series into PostgreSQL. The reliability design combines streaming with REST-based recovery/backfill so candle continuity is preserved even across disconnects or missed events.',
+      highlights: [
+        'Real-time WebSocket ingestion pipeline for market ticks (Upstox APIs)',
+        '5-minute OHLC aggregation with consistency and continuity checks',
+        'Hybrid reliability: streaming + REST recovery/backfill mechanisms',
+        'Background sweeper process that audits and repairs missing candles',
+        'Experimental RSI implementations to match broker/TradingView smoothing and rounding'
+      ],
+      tech: ['Python', 'WebSockets', 'PostgreSQL', 'REST APIs', 'Upstox API', 'AWS EC2', 'Git/GitHub']
+    },
+    sentiment: {
+      name: 'Market Sentiment Risk Score',
+      tagline: 'News sentiment + macro signals → interpretable risk score',
+      description: 'A market sentiment pipeline that unifies financial news sentiment and live macro/market indicators into a single global risk score. Fetches macro and market-related news via the Event Registry API, filters high-signal articles, and scores sentiment using the FinBERT transformer. In parallel, market signals (NIFTY 50, S&P 500, crude oil, gold, USD/INR) are normalized into comparable condition scores and fused through a configurable weighting engine for transparent, robust scoring.',
+      highlights: [
+        'News ingestion + filtering via Event Registry API for high-signal finance articles',
+        'FinBERT-based sentiment scoring with noise filtering and diagnostics',
+        'Normalized market-condition scoring across multiple macro instruments',
+        'Weighted fusion engine with clipping safeguards and score normalization',
+        'Interpretable output from risk-off → risk-on with tracking for reliability'
+      ],
+      tech: ['Python', 'Transformers', 'FinBERT', 'Event Registry API', 'REST APIs', 'Time-series Scoring']
     }
   };
 
