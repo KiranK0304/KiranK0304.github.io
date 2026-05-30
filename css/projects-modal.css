@@ -36,6 +36,8 @@
 .project-card:nth-child(6) { border-left: 3px solid #c06ebd; }
 .project-card:nth-child(7) { border-left: 3px solid var(--accent); }
 .project-card:nth-child(8) { border-left: 3px solid var(--accent-2); }
+.project-card:nth-child(9) { border-left: 3px solid var(--accent-3); }
+.project-card:nth-child(10) { border-left: 3px solid #5cc77e; }
 
 .project-card:nth-child(1):hover {
   box-shadow: 0 4px 20px rgba(46,139,139,0.18), 0 0 30px rgba(46,139,139,0.08);
@@ -69,6 +71,14 @@
 .project-card:nth-child(8):hover {
   box-shadow: 0 4px 20px rgba(108,99,255,0.18), 0 0 30px rgba(108,99,255,0.08);
   border-color: var(--accent-2); transform: translateY(-2px);
+}
+.project-card:nth-child(9):hover {
+  box-shadow: 0 4px 20px rgba(232,119,93,0.18), 0 0 30px rgba(232,119,93,0.08);
+  border-color: var(--accent-3); transform: translateY(-2px);
+}
+.project-card:nth-child(10):hover {
+  box-shadow: 0 4px 20px rgba(92,199,126,0.18), 0 0 30px rgba(92,199,126,0.08);
+  border-color: #5cc77e; transform: translateY(-2px);
 }
 
 /* Compact project card layout */
@@ -225,4 +235,3 @@
   font-size: 11px;
   font-weight: 500;
 }
-

@@ -12,6 +12,19 @@
       ],
       tech: ['Python', 'LangGraph', 'Pydantic', 'LangChain', 'Groq']
     },
+    quantaire: {
+      name: 'Quantaire: Stock Market Pattern Detection',
+      tagline: 'Computer vision for automated stock-chart analysis',
+      description: 'A computer-vision pipeline for automated detection of technical stock-chart patterns using a custom YOLOv8 model. The system captures TradingView charts with Playwright, runs low-latency in-memory inference, and emits structured logs for scanner reliability and monitoring.',
+      highlights: [
+        'Built a custom YOLOv8 workflow for technical chart-pattern detection',
+        'Automated TradingView chart capture with Playwright headless browser orchestration',
+        'Designed in-memory single-stock inference without intermediate disk writes',
+        'Implemented retry-based browser recovery for scanner reliability',
+        'Containerized inference services with Docker and published images through AWS ECR'
+      ],
+      tech: ['Python', 'YOLOv8', 'Playwright', 'NumPy', 'Docker', 'AWS ECR']
+    },
     gpt: {
       name: 'GPT-style Transformer',
       tagline: 'Teaching transformers to do math',
@@ -50,6 +63,19 @@
         'Security groups, IAM roles, and VPC networking'
       ],
       tech: ['AWS', 'EC2', 'RDS', 'EFS', 'EKS', 'Nginx', 'Docker']
+    },
+    gapbot: {
+      name: 'Gap Scanner Telegram Bot',
+      tagline: 'Scheduled market scans delivered through Telegram',
+      description: 'An automated market gap scanner that fetches live stock data on a daily schedule, identifies stocks exceeding opening gap thresholds, and sends structured reports to a private Telegram group.',
+      highlights: [
+        'Scheduled daily scans at market open using cron',
+        'Fetched stock data with yfinance for gap analysis',
+        'Implemented threshold logic for stocks exceeding +/-1% opening gaps',
+        'Delivered structured reports through Telegram Bot API workflows',
+        'Designed for lightweight daily automation and private group reporting'
+      ],
+      tech: ['Python', 'yfinance', 'python-telegram-bot', 'Cron', 'Telegram Bot API']
     },
     pong: {
       name: 'RL Pong Agent',
