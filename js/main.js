@@ -4,6 +4,33 @@
    ========================================================================== */
 
 function initPortfolio() {
+  document.body.classList.add('portfolio-view-mode');
+
+  // ========================================
+  // THEME TOGGLE
+  // ========================================
+  const themeToggle = document.getElementById('theme-toggle');
+  const savedTheme = localStorage.getItem('portfolio-theme');
+  let activeTheme = savedTheme || 'dark';
+
+  function applyTheme(theme) {
+    activeTheme = theme;
+    document.body.classList.toggle('dark-mode', theme === 'dark');
+    if (themeToggle) {
+      themeToggle.textContent = theme === 'dark' ? '☀' : '☾';
+      themeToggle.title = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+      themeToggle.setAttribute('aria-label', themeToggle.title);
+    }
+    localStorage.setItem('portfolio-theme', theme);
+  }
+
+  applyTheme(activeTheme);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      applyTheme(activeTheme === 'dark' ? 'light' : 'dark');
+    });
+  }
 
   // ========================================
   // ENHANCEMENT #1: DOT-GRID PARALLAX
@@ -111,28 +138,16 @@ function initPortfolio() {
   const statusTime = document.getElementById('status-time');
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav a');
+  let activeViewId = 'hero';
 
   function updateStatusBar() {
-    // Update scroll percentage
-    const scrollY = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? Math.round((scrollY / docHeight) * 100) : 0;
-    if (statusScrollPct) statusScrollPct.textContent = pct + '%';
-
-    // Update current section
-    let currentSection = 'hero';
-    sections.forEach(section => {
-      const top = section.offsetTop - 150;
-      if (scrollY >= top) {
-        currentSection = section.getAttribute('id');
-      }
-    });
-    if (statusSectionName) statusSectionName.textContent = currentSection;
+    if (statusScrollPct) statusScrollPct.textContent = 'view';
+    if (statusSectionName) statusSectionName.textContent = activeViewId;
 
     // Nav scroll spy
     navLinks.forEach(link => {
       link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + currentSection) {
+      if (link.getAttribute('href') === '#' + activeViewId) {
         link.classList.add('active');
       }
     });
@@ -190,6 +205,8 @@ function initPortfolio() {
   typingSections.forEach(s => typingObserver.observe(s));
 
   function animateSection(section) {
+    if (section.dataset.animated === 'true') return;
+    section.dataset.animated = 'true';
     section.classList.add('visible');
     const prompts = section.querySelectorAll('.prompt .cmd');
     const outputs = section.querySelectorAll('.output');
@@ -230,6 +247,8 @@ function initPortfolio() {
   const heroSection = document.getElementById('hero');
   if (heroSection) {
     heroSection.classList.add('visible');
+    heroSection.classList.add('active-view');
+    heroSection.dataset.animated = 'true';
   }
 
   const heroName = document.getElementById('hero-name');
@@ -253,18 +272,48 @@ function initPortfolio() {
   }
 
   // ---- Smooth scroll for nav links ----
+  function showView(viewId, options = {}) {
+    const normalizedId = viewId.replace(/^#/, '') || 'hero';
+    const target = document.getElementById(normalizedId);
+    if (!target) return;
+
+    activeViewId = normalizedId;
+    sections.forEach(section => {
+      section.classList.toggle('active-view', section === target);
+    });
+
+    if (target.id === 'hero') {
+      target.classList.add('visible');
+    } else {
+      animateSection(target);
+    }
+
+    updateStatusBar();
+
+    if (!options.skipHistory) {
+      history.pushState({ view: normalizedId }, '', `#${normalizedId}`);
+    }
+
+    if (!options.skipScroll) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       const href = link.getAttribute('href');
       if (href && href.startsWith('#')) {
         e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        showView(href);
       }
     });
   });
+
+  window.addEventListener('popstate', () => {
+    showView(window.location.hash || '#hero', { skipHistory: true });
+  });
+
+  showView(window.location.hash || '#hero', { skipHistory: true, skipScroll: true });
 
   // ========================================
   // ENHANCEMENT #5: INTERACTIVE TERMINAL INPUT
@@ -275,15 +324,16 @@ function initPortfolio() {
 
   const commands = {
     help: `<span class="response-label">Available commands:</span><br>
-      &nbsp;&nbsp;whoami &nbsp;&nbsp;— jump to hero<br>
-      &nbsp;&nbsp;about &nbsp;&nbsp;&nbsp;— jump to about<br>
-      &nbsp;&nbsp;education — jump to education<br>
-      &nbsp;&nbsp;projects — jump to projects<br>
-      &nbsp;&nbsp;teaching — jump to teaching<br>
-      &nbsp;&nbsp;skills &nbsp;&nbsp;— jump to skills<br>
-      &nbsp;&nbsp;contact &nbsp;— jump to contact<br>
-      &nbsp;&nbsp;clear &nbsp;&nbsp;&nbsp;— clear output<br>
-      &nbsp;&nbsp;hello &nbsp;&nbsp;&nbsp;— say hi`,
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="whoami">whoami</button> &nbsp;&nbsp;— jump to hero<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="about">about</button> &nbsp;&nbsp;&nbsp;— jump to about<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="education">education</button> — jump to education<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="projects">projects</button> — jump to projects<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="skills">skills</button> &nbsp;&nbsp;— jump to skills<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="contact">contact</button> &nbsp;— jump to contact<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="github">github</button> &nbsp;&nbsp;— open GitHub profile<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="resume">resume</button> &nbsp;— open resume PDF<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="clear">clear</button> &nbsp;&nbsp;&nbsp;— clear output<br>
+      &nbsp;&nbsp;<button type="button" class="terminal-command-link" data-run-command="hello">hello</button> &nbsp;&nbsp;&nbsp;— say hi`,
     whoami: 'nav:#hero',
     about: 'nav:#about',
     education: 'nav:#education',
@@ -291,6 +341,10 @@ function initPortfolio() {
     teaching: 'nav:#teaching',
     skills: 'nav:#skills',
     contact: 'nav:#contact',
+    github: 'open:https://github.com/KiranK0304',
+    email: 'open:mailto:kirankuruvila03@gmail.com',
+    resume: 'open:assets/kiran-kuruvila-resume.pdf',
+    cv: 'open:assets/kiran-kuruvila-resume.pdf',
     clear: 'clear',
     hello: `<span class="response-label">Hey there!</span> Thanks for visiting. Try typing "projects" or "skills".`,
     hi: `<span class="response-label">Hello!</span> Type "help" to see what you can do.`,
@@ -302,50 +356,70 @@ function initPortfolio() {
     sudo: `<span class="response-label">Nice try.</span> 😄`
   };
 
+  function runTerminalCommand(rawInput, options = {}) {
+    const input = rawInput.trim().toLowerCase();
+    if (!input) return;
+
+    if (options.openTerminalFirst) {
+      openTerminal();
+    }
+
+    if (terminalInput) {
+      terminalInput.value = '';
+    }
+
+    const cmd = commands[input];
+
+    if (cmd === 'clear') {
+      terminalOutput.classList.remove('show');
+      terminalResponse.innerHTML = '';
+      return;
+    }
+
+    if (typeof cmd === 'string' && cmd.startsWith('nav:')) {
+      terminalResponse.innerHTML = `<span class="response-label">→</span> running <strong>${input}</strong>...`;
+      terminalOutput.classList.add('show');
+      setTimeout(() => {
+        closeTerminal();
+        showView(cmd.slice(5));
+      }, 500);
+      return;
+    }
+
+    if (typeof cmd === 'string' && cmd.startsWith('open:')) {
+      const url = cmd.slice(5);
+      terminalResponse.innerHTML = `<span class="response-label">→</span> opening ${input}...`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      terminalOutput.classList.add('show');
+      return;
+    }
+
+    if (typeof cmd === 'function') {
+      terminalResponse.innerHTML = cmd();
+    } else if (cmd) {
+      terminalResponse.innerHTML = cmd;
+    } else {
+      terminalResponse.innerHTML = `<span class="response-label">command not found:</span> ${input}. Try "help".`;
+    }
+
+    terminalOutput.classList.add('show');
+  }
+
   if (terminalInput) {
     terminalInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
-        const input = terminalInput.value.trim().toLowerCase();
-        terminalInput.value = '';
-
-        if (!input) return;
-
-        const cmd = commands[input];
-
-        if (cmd === 'clear') {
-          terminalOutput.classList.remove('show');
-          terminalResponse.innerHTML = '';
-          return;
-        }
-
-        if (typeof cmd === 'string' && cmd.startsWith('nav:')) {
-          const target = document.querySelector(cmd.slice(4));
-          terminalResponse.innerHTML = `<span class="response-label">→</span> navigating to ${input}...`;
-          terminalOutput.classList.add('show');
-          // Close terminal after a short delay, then scroll
-          setTimeout(() => {
-            closeTerminal();
-            if (target) {
-              setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 250);
-            }
-          }, 500);
-          return;
-        }
-
-        if (typeof cmd === 'function') {
-          terminalResponse.innerHTML = cmd();
-        } else if (cmd) {
-          terminalResponse.innerHTML = cmd;
-        } else {
-          terminalResponse.innerHTML = `<span class="response-label">command not found:</span> ${input}. Try "help".`;
-        }
-
-        terminalOutput.classList.add('show');
+        runTerminalCommand(terminalInput.value);
       }
     });
   }
+
+  document.addEventListener('click', (e) => {
+    if (!(e.target instanceof Element)) return;
+    const commandButton = e.target.closest('[data-run-command]');
+    if (!commandButton) return;
+    e.preventDefault();
+    runTerminalCommand(commandButton.dataset.runCommand || '', { openTerminalFirst: true });
+  });
 
   // ========================================
   // PROJECT MODAL SYSTEM
