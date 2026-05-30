@@ -1,0 +1,258 @@
+/* ==========================================================================
+   Kiran Kuruvila — Portfolio
+   Terminal-inspired light theme — Phase 2: futuristic enhancements
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  --bg:          #f2f1ec;
+  --bg-card:     #ffffff;
+  --text:        #2a2a2a;
+  --text-muted:  #6b6b6b;
+  --accent:      #2e8b8b;
+  --accent-2:    #6c63ff;
+  --accent-3:    #e8775d;
+  --accent-light:#e3f4f4;
+  --accent-2-light:#eeeaff;
+  --accent-3-light:#fdeae5;
+  --border:      #d8d8d4;
+  --glow:        rgba(46,139,139,0.35);
+  --glow-2:      rgba(108,99,255,0.20);
+  --shadow:      0 2px 12px rgba(0,0,0,0.05);
+  --shadow-hover:0 6px 24px rgba(0,0,0,0.09);
+  --radius:      14px;
+  --font:        'JetBrains Mono', 'Fira Code', 'IBM Plex Mono', monospace;
+  --max-w:       820px;
+  --nav-h:       56px;
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 24px);
+}
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===== ENHANCEMENT #1: DOT-GRID BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(46,139,139,0.12) 1px, transparent 1px),
+    radial-gradient(circle, rgba(108,99,255,0.06) 1px, transparent 1px);
+  background-size: 28px 28px, 42px 42px;
+  background-position: 0 0, 14px 14px;
+  pointer-events: none;
+  transition: background-position 0.1s ease-out;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: opacity .2s, color .2s;
+}
+a:hover { opacity: .8; }
+
+/* ---- Navigation with GLOW ---- */
+.nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(46,139,139,0.25);
+  border-radius: 999px;
+  padding: 6px 10px;
+  display: flex;
+  gap: 2px;
+  box-shadow:
+    0 0 12px var(--glow),
+    0 0 30px rgba(46,139,139,0.10),
+    0 2px 8px rgba(0,0,0,0.04);
+  transition: box-shadow .4s, border-color .4s;
+  animation: navPulse 3s ease-in-out infinite;
+}
+@keyframes navPulse {
+  0%, 100% { box-shadow: 0 0 12px var(--glow), 0 0 30px rgba(46,139,139,0.10), 0 2px 8px rgba(0,0,0,0.04); }
+  50% { box-shadow: 0 0 20px var(--glow), 0 0 50px rgba(46,139,139,0.15), 0 2px 8px rgba(0,0,0,0.04); }
+}
+.nav:hover {
+  box-shadow: 0 0 24px var(--glow), 0 0 60px rgba(46,139,139,0.18), 0 4px 16px rgba(0,0,0,0.06);
+  border-color: var(--accent);
+}
+
+.nav a {
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  transition: background .2s, color .2s;
+  white-space: nowrap;
+}
+.nav a:first-of-type {
+  margin-left: auto;
+}
+.nav a::before {
+  content: '$ ';
+  color: var(--accent);
+  font-weight: 600;
+}
+.nav a:hover,
+.nav a.active {
+  background: var(--accent-light);
+  color: var(--text);
+  opacity: 1;
+}
+
+/* Nav terminal toggle button — separated left */
+.nav-terminal-btn {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: 1px solid rgba(46,139,139,0.2);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: background .2s, border-color .2s;
+  line-height: 1;
+  margin-right: auto;
+  order: -1;
+}
+.nav-terminal-btn:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* ===== FLOATING TERMINAL POPUP ===== */
+.floating-terminal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.94);
+  z-index: 300;
+  width: 92%;
+  max-width: 640px;
+  min-height: 400px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 30px var(--glow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease, transform .25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.floating-terminal.open {
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%, -50%) scale(1);
+}
+/* Backdrop overlay when terminal is open */
+.terminal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 299;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+.terminal-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.floating-terminal-titlebar {
+  background: linear-gradient(180deg, #f8f8f5, var(--bg));
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+.floating-terminal-titlebar .titlebar-dots {
+  cursor: pointer;
+}
+.floating-terminal-label {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.floating-terminal-body {
+  padding: 0;
+}
+.floating-terminal .terminal-output {
+  display: block;
+  padding: 20px 24px;
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  flex: 1;
+  overflow-y: auto;
+  border-top: none;
+}
+.floating-terminal .terminal-input-bar {
+  display: flex;
+  align-items: center;
+  padding: 14px 24px;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.floating-terminal .input-prefix {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.floating-terminal input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 15px;
+  color: var(--text);
+  caret-color: var(--accent);
+}
+.floating-terminal input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+.floating-terminal .cmd-response .response-label {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 15px;
+}
+

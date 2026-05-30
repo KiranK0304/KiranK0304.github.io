@@ -1,0 +1,245 @@
+/* ---- Skills ---- */
+.skill-group {
+  margin-bottom: 16px;
+}
+.skill-group .group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.skill-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.skill-tag:hover {
+  transform: translateY(-1px);
+}
+
+/* Color-coded skill categories */
+.skill-group:nth-child(1) .skill-tag,
+.skill-group:nth-child(2) .skill-tag { background: var(--accent-light); color: var(--accent); }
+.skill-group:nth-child(1) .skill-tag:hover,
+.skill-group:nth-child(2) .skill-tag:hover { border-color: var(--accent); background: #fff; }
+
+.skill-group:nth-child(3) .skill-tag,
+.skill-group:nth-child(4) .skill-tag { background: var(--accent-2-light); color: var(--accent-2); }
+.skill-group:nth-child(3) .skill-tag:hover,
+.skill-group:nth-child(4) .skill-tag:hover { border-color: var(--accent-2); background: #fff; }
+
+.skill-group:nth-child(5) .skill-tag,
+.skill-group:nth-child(6) .skill-tag { background: var(--accent-3-light); color: var(--accent-3); }
+.skill-group:nth-child(5) .skill-tag:hover,
+.skill-group:nth-child(6) .skill-tag:hover { border-color: var(--accent-3); background: #fff; }
+
+.skill-group:nth-child(7) .skill-tag { background: #fef5dc; color: #b8921a; }
+.skill-group:nth-child(7) .skill-tag:hover { border-color: #d4a843; background: #fff; }
+
+.skill-group:nth-child(8) .skill-tag { background: #e6f7ed; color: #3a8f5c; }
+.skill-group:nth-child(8) .skill-tag:hover { border-color: #5cc77e; background: #fff; }
+
+.skill-group:nth-child(9) .skill-tag { background: #f0eaff; color: #7b61c2; }
+.skill-group:nth-child(9) .skill-tag:hover { border-color: #9b85d6; background: #fff; }
+
+/* ---- Education ---- */
+.edu-entry {
+  margin-bottom: 14px;
+  padding-left: 12px;
+  border-left: 2px solid var(--accent);
+}
+.edu-entry:last-child { margin-bottom: 0; }
+.edu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.edu-degree {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+.edu-year {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.edu-school {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ---- Teaching ---- */
+.teaching-list {
+  margin-top: 8px;
+}
+.teaching-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+.teaching-list li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: var(--accent-2);
+  font-weight: 700;
+}
+
+/* ---- Footer ---- */
+.page-footer {
+  text-align: center;
+  padding-top: 8px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: background .2s, border-color .2s, box-shadow .2s;
+}
+.footer-links a:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+  opacity: 1;
+}
+
+.tagline {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+  padding-bottom: 8px;
+}
+
+.divider {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 16px auto;
+}
+
+/* ===== ENHANCEMENT #3: TERMINAL STATUS BAR ===== */
+.status-bar {
+  background: linear-gradient(180deg, var(--bg), #eae9e4);
+  border-top: 1px solid var(--border);
+  padding: 6px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  position: relative;
+  z-index: 11;
+}
+.status-bar .status-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.status-bar .status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: blink 2s ease-in-out infinite;
+}
+.status-bar .status-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+.status-bar .status-separator {
+  color: var(--border);
+  margin: 0 4px;
+}
+
+/* ===== ENHANCEMENT #5: INTERACTIVE TERMINAL INPUT ===== */
+/* old terminal-input-wrapper removed — now using floating terminal */
+.terminal-input-wrapper-UNUSED {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  max-width: var(--max-w);
+  margin: 20px auto 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.terminal-input-bar {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  gap: 8px;
+  background: var(--bg-card);
+}
+
+.terminal-input-bar .input-prefix {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.terminal-input-bar input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 14px;
+  color: var(--text);
+  caret-color: var(--accent);
+}
+.terminal-input-bar input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.terminal-output {
+  display: none;
+  padding: 0 20px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  border-top: 1px solid var(--border);
+}
+.terminal-output.show {
+  display: block;
+}
+.terminal-output .cmd-response {
+  padding-top: 10px;
+}
+.terminal-output .cmd-response .response-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+
