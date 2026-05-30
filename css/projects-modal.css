@@ -147,7 +147,7 @@
 }
 
 .modal-titlebar {
-  background: linear-gradient(180deg, #f8f8f5, var(--bg));
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg));
   border-bottom: 1px solid var(--border);
   padding: 12px 20px;
   display: flex;

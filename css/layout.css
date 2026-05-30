@@ -75,7 +75,7 @@
   height: 120px;
   border-radius: 14px;
   border: 2px dashed var(--border);
-  background: rgba(255,255,255,0.6);
+  background: var(--nav-bg);
   /* display: flex; */
   align-items: center;
   justify-content: center;
@@ -89,7 +89,7 @@
 }
 .side-image-slot:hover {
   border-color: var(--accent);
-  background: rgba(255,255,255,0.9);
+  background: var(--bg-card);
 }
 .side-image-slot img {
   width: 100%;
@@ -159,7 +159,7 @@
 
 /* macOS title bar */
 .page-titlebar {
-  background: linear-gradient(180deg, #f8f8f5, var(--bg));
+  background: linear-gradient(180deg, var(--bg-soft), var(--bg));
   border-bottom: 1px solid var(--border);
   padding: 13px 20px;
   display: flex;
@@ -193,6 +193,7 @@
   padding: 36px 44px 24px;
   position: relative;
   z-index: 11;
+  min-height: 520px;
 }
 
 /* ---- Section Dividers ---- */
@@ -213,6 +214,18 @@ section {
 section.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+body.portfolio-view-mode .section-divider {
+  display: none;
+}
+
+body.portfolio-view-mode .page-content > section {
+  display: none;
+}
+
+body.portfolio-view-mode .page-content > section.active-view {
+  display: block;
 }
 
 /* ---- Prompt ---- */
@@ -311,6 +324,106 @@ section.visible {
   margin-top: 4px;
 }
 
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  padding-left: 18px;
+}
+
+.hero-actions a {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.hero-actions a:hover {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.command-shortcuts {
+  margin-top: 24px;
+  padding-left: 18px;
+}
+
+.command-shortcuts-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.command-shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.command-shortcut {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+  transition: background .2s, border-color .2s, box-shadow .2s, transform .2s;
+}
+
+.command-shortcut:nth-child(2),
+.command-shortcut:nth-child(5) {
+  border-left-color: var(--accent-2);
+}
+
+.command-shortcut:nth-child(3),
+.command-shortcut:nth-child(6) {
+  border-left-color: var(--accent-3);
+}
+
+.command-shortcut:hover {
+  background: var(--bg-card);
+  border-color: var(--accent);
+  box-shadow: 0 4px 18px rgba(46,139,139,0.14);
+  transform: translateY(-1px);
+}
+
+.shortcut-command {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.shortcut-command::before {
+  content: '$ ';
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.shortcut-desc {
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
 .output p {
   margin-bottom: 12px;
   font-size: 14.5px;
@@ -350,4 +463,3 @@ section.visible {
 @keyframes blink {
   50% { opacity: 0; }
 }
-

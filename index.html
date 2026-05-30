@@ -16,6 +16,9 @@
     <a href="#projects">projects</a>
     <a href="#skills">skills</a>
     <a href="#contact">contact</a>
+    <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer">github</a>
+    <a href="assets/kiran-kuruvila-resume.pdf" target="_blank" rel="noopener noreferrer">resume</a>
+    <button class="theme-toggle-btn" id="theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode">☾</button>
     <button class="nav-terminal-btn" id="toggle-terminal" title="Open terminal">&gt;_</button>
   </nav>
 
@@ -90,6 +93,42 @@
           <div class="prompt"><span class="cmd" data-cmd="philosophy">philosophy</span></div>
           <div class="output">
             <p class="philosophy">Building intelligent systems that are structured, reliable, and grounded in first principles.<span class="cursor"></span></p>
+          </div>
+
+          <div class="hero-actions">
+            <a href="mailto:kirankuruvila03@gmail.com">Email</a>
+            <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="assets/kiran-kuruvila-resume.pdf" target="_blank" rel="noopener noreferrer">View Resume</a>
+          </div>
+
+          <div class="command-shortcuts" aria-label="Command shortcuts">
+            <div class="command-shortcuts-label">try commands</div>
+            <div class="command-shortcuts-grid">
+              <button type="button" class="command-shortcut" data-run-command="projects">
+                <span class="shortcut-command">projects</span>
+                <span class="shortcut-desc">view portfolio work</span>
+              </button>
+              <button type="button" class="command-shortcut" data-run-command="skills">
+                <span class="shortcut-command">skills</span>
+                <span class="shortcut-desc">scan technical stack</span>
+              </button>
+              <button type="button" class="command-shortcut" data-run-command="contact">
+                <span class="shortcut-command">contact</span>
+                <span class="shortcut-desc">open contact section</span>
+              </button>
+              <button type="button" class="command-shortcut" data-run-command="resume">
+                <span class="shortcut-command">resume</span>
+                <span class="shortcut-desc">open resume PDF</span>
+              </button>
+              <button type="button" class="command-shortcut" data-run-command="github">
+                <span class="shortcut-command">github</span>
+                <span class="shortcut-desc">open GitHub profile</span>
+              </button>
+              <button type="button" class="command-shortcut" data-run-command="help">
+                <span class="shortcut-command">help</span>
+                <span class="shortcut-desc">list all commands</span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -359,10 +398,23 @@
         <!-- ===== FOOTER / CONTACT ===== -->
         <section id="contact" class="page-footer">
           <div class="prompt"><span class="cmd" data-cmd="contact">contact</span></div>
-          <div class="output" style="padding-left:0;">
-            <div class="footer-links">
-              <a href="mailto:kirankuruvila03@gmail.com" id="email-link">✉ kirankuruvila03@gmail.com</a>
-              <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer" id="github-link">GitHub — github.com/KiranK0304</a>
+          <div class="output">
+            <div class="contact-rows">
+              <a class="contact-row" href="mailto:kirankuruvila03@gmail.com" id="email-link">
+                <span class="contact-label">Email</span>
+                <span class="contact-value">kirankuruvila03@gmail.com</span>
+                <span class="contact-action">Send mail</span>
+              </a>
+              <a class="contact-row" href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer" id="github-link">
+                <span class="contact-label">GitHub</span>
+                <span class="contact-value">github.com/KiranK0304</span>
+                <span class="contact-action">Open profile</span>
+              </a>
+              <a class="contact-row" href="assets/kiran-kuruvila-resume.pdf" target="_blank" rel="noopener noreferrer" id="resume-view-link">
+                <span class="contact-label">Resume</span>
+                <span class="contact-value">kiran-kuruvila-resume.pdf</span>
+                <span class="contact-action">View PDF</span>
+              </a>
             </div>
             <div class="divider"></div>
             <p class="tagline">"Built with clarity, not noise."</p>
