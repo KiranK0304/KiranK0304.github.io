@@ -91,6 +91,11 @@
 
         <!-- ===== HERO ===== -->
         <section id="hero">
+          <div class="coder-status-bar">
+            <span class="coder-pip"></span>
+            <span class="coder-status-text">SYS.STATUS: OPERATIONAL // MCA &middot; APPLIED AI &middot; VISITS: <span id="hero-visitor-count">...</span></span>
+          </div>
+
           <div class="prompt"><span class="cmd" data-cmd="whoami">whoami</span></div>
           <div class="output">
             <h2 id="hero-name" data-text="Kiran Kuruvila">Kiran Kuruvila</h2>
@@ -110,36 +115,6 @@
             <a href="mailto:kirankuruvila03@gmail.com">Email</a>
             <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="assets/kiran-kuruvila-resume.pdf" target="_blank" rel="noopener noreferrer">View Resume</a>
-          </div>
-
-          <div class="command-shortcuts" aria-label="Command shortcuts">
-            <div class="command-shortcuts-label">try commands</div>
-            <div class="command-shortcuts-grid">
-              <button type="button" class="command-shortcut" data-run-command="projects">
-                <span class="shortcut-command">projects</span>
-                <span class="shortcut-desc">view portfolio work</span>
-              </button>
-              <button type="button" class="command-shortcut" data-run-command="skills">
-                <span class="shortcut-command">skills</span>
-                <span class="shortcut-desc">scan technical stack</span>
-              </button>
-              <button type="button" class="command-shortcut" data-run-command="contact">
-                <span class="shortcut-command">contact</span>
-                <span class="shortcut-desc">open contact section</span>
-              </button>
-              <button type="button" class="command-shortcut" data-run-command="resume">
-                <span class="shortcut-command">resume</span>
-                <span class="shortcut-desc">open resume PDF</span>
-              </button>
-              <button type="button" class="command-shortcut" data-run-command="github">
-                <span class="shortcut-command">github</span>
-                <span class="shortcut-desc">open GitHub profile</span>
-              </button>
-              <button type="button" class="command-shortcut" data-run-command="help">
-                <span class="shortcut-command">help</span>
-                <span class="shortcut-desc">list all commands</span>
-              </button>
-            </div>
           </div>
         </section>
 
@@ -438,8 +413,6 @@
                 <span class="contact-action">View PDF</span>
               </a>
             </div>
-            <div class="divider"></div>
-            <p class="tagline">"Built with clarity, not noise."</p>
           </div>
         </section>
 
@@ -454,6 +427,9 @@
           <span class="status-separator">│</span>
           <span>scroll:</span>
           <span class="status-label" id="status-scroll-pct">0%</span>
+          <span class="status-separator">│</span>
+          <span>visitors:</span>
+          <span class="status-label" id="visitor-count">...</span>
         </div>
         <div class="status-section">
           <span>kerala, india</span>

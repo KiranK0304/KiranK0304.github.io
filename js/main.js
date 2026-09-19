@@ -1,11 +1,11 @@
 /* ==========================================================================
    Kiran Kuruvila — Portfolio JS
-   "Blue Phosphor" CRT Theme & Interactions
+   "Blue Phosphor" CRT Theme & Apple-Style Scroll Animations
    ========================================================================== */
 
 function initPortfolio() {
   // ========================================
-  // THEME MANAGEMENT (Dark default + Light)
+  // 1. THEME MANAGEMENT (Dark default + Light)
   // ========================================
   const stored = localStorage.getItem('theme');
   const initial = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -37,7 +37,7 @@ function initPortfolio() {
   }
 
   // ========================================
-  // SCROLL PROGRESS BAR & ACTIVE NAV HIGHLIGHT
+  // 2. SCROLL PROGRESS BAR & ACTIVE NAV
   // ========================================
   const scrollProgress = document.getElementById('scroll-progress');
   const navLinks = document.querySelectorAll('.nav a[href^="#"]');
@@ -60,7 +60,7 @@ function initPortfolio() {
 
     // Determine current active section
     let currentSection = 'hero';
-    const scrollPos = scrollTop + 140;
+    const scrollPos = scrollTop + 160;
 
     sections.forEach(section => {
       const top = section.offsetTop;
@@ -96,43 +96,85 @@ function initPortfolio() {
   setInterval(updateClock, 30000);
 
   // ========================================
-  // QUICK SHORTCUT BUTTONS
+  // 3. APPLE-STYLE MULTI-DIRECTIONAL SCROLL REVEALS
   // ========================================
-  document.addEventListener('click', (e) => {
-    if (!(e.target instanceof Element)) return;
-    const commandButton = e.target.closest('[data-run-command]');
-    if (!commandButton) return;
-    e.preventDefault();
+  const revealSelectors = [
+    '.prompt',
+    '#hero-name',
+    '#hero .coder-status-bar',
+    '#hero .subtitle',
+    '#hero .philosophy',
+    '#hero .hero-actions',
+    '#about p',
+    '#about ul',
+    '.edu-entry',
+    '.project-card',
+    '#teaching p',
+    '#teaching ul',
+    '.skill-group',
+    '.contact-row'
+  ];
 
-    const cmd = (commandButton.dataset.runCommand || '').trim().toLowerCase();
-    const targetMap = {
-      whoami: '#hero',
-      about: '#about',
-      education: '#education',
-      projects: '#projects',
-      skills: '#skills',
-      teaching: '#teaching',
-      contact: '#contact',
-      github: 'https://github.com/KiranK0304',
-      resume: 'assets/kiran-kuruvila-resume.pdf',
-      help: '#projects'
-    };
+  const revealElements = document.querySelectorAll(revealSelectors.join(', '));
 
-    const dest = targetMap[cmd];
-    if (dest) {
-      if (dest.startsWith('http') || dest.endsWith('.pdf')) {
-        window.open(dest, '_blank', 'noopener,noreferrer');
-      } else {
-        const el = document.querySelector(dest);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    }
+  revealElements.forEach(el => {
+    el.classList.add('reveal-init');
   });
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!prefersReducedMotion) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+  } else {
+    // If user prefers reduced motion, reveal immediately
+    revealElements.forEach(el => el.classList.add('in-view'));
+  }
+
   // ========================================
-  // PROJECT MODAL SYSTEM
+  // 4. INTERACTIVE 3D CARD TILT & GLOW (Apple Pro style)
+  // ========================================
+  if (!prefersReducedMotion && window.innerWidth > 768) {
+    document.querySelectorAll('.project-card').forEach(card => {
+      let isHovered = false;
+
+      card.addEventListener('mouseenter', () => {
+        isHovered = true;
+      });
+
+      card.addEventListener('mousemove', (e) => {
+        if (!isHovered) return;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -6; // max 6deg
+        const rotateY = ((x - centerX) / centerX) * 6;  // max 6deg
+
+        card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px) scale(1.01)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        isHovered = false;
+        card.style.transform = '';
+      });
+    });
+  }
+
+  // ========================================
+  // 5. PROJECT MODAL SYSTEM
   // ========================================
   const projectData = window.projectData || {};
   const modal = document.getElementById('project-modal');
@@ -190,6 +232,40 @@ function initPortfolio() {
       }
     });
   }
+
+  // ========================================
+  // 6. PERSISTENT VISITOR COUNTER
+  // ========================================
+  const countKey = 'kirank0304_github_io_visits';
+  const hasVisited = sessionStorage.getItem('portfolio_counted');
+  const counterEndpoint = hasVisited
+    ? `https://countapi.mileshilliard.com/api/v1/get/${countKey}`
+    : `https://countapi.mileshilliard.com/api/v1/hit/${countKey}`;
+
+  fetch(counterEndpoint)
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(data => {
+      if (!hasVisited) {
+        sessionStorage.setItem('portfolio_counted', 'true');
+      }
+      if (data && typeof data.value === 'number') {
+        const formatted = data.value.toLocaleString();
+        const bottomCounter = document.getElementById('visitor-count');
+        const heroCounter = document.getElementById('hero-visitor-count');
+        if (bottomCounter) bottomCounter.textContent = formatted;
+        if (heroCounter) heroCounter.textContent = formatted;
+      }
+    })
+    .catch(err => {
+      console.debug('Visitor counter sync notice:', err.message);
+      const bottomCounter = document.getElementById('visitor-count');
+      const heroCounter = document.getElementById('hero-visitor-count');
+      if (bottomCounter && bottomCounter.textContent === '...') bottomCounter.textContent = 'online';
+      if (heroCounter && heroCounter.textContent === '...') heroCounter.textContent = 'online';
+    });
 }
 
 if (document.readyState === 'loading') {
