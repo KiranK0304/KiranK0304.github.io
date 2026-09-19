@@ -158,12 +158,16 @@ function initPortfolio() {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        const rotateX = ((y - centerY) / centerY) * -6; // max 6deg
-        const rotateY = ((x - centerX) / centerX) * 6;  // max 6deg
+        const rotateX = ((y - centerY) / centerY) * -6.5;
+        const rotateY = ((x - centerX) / centerX) * 6.5;
 
-        card.style.transform = `perspective(800px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px) scale(1.01)`;
+        card.style.transform = `perspective(850px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-5px) scale(1.015)`;
       });
 
       card.addEventListener('mouseleave', () => {

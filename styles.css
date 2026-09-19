@@ -126,97 +126,127 @@ a:hover {
 
 /* ==========================================================================
    APPLE-STYLE MULTI-DIRECTIONAL SCROLL ANIMATIONS
-   Physics: Apple Decelerating Spring Curve cubic-bezier(0.16, 1, 0.3, 1)
+   Physics: Slow, Luxurious Cinematic Ingress with Apple Decelerating Spring
+   Duration: 1.2s - 1.35s | Depth: 3D perspective + focus de-blur
    ========================================================================== */
 .reveal-init {
   opacity: 0;
-  will-change: transform, opacity;
-  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
-              opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, filter;
+  transition: transform 1.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 1.25s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Settled In-View state */
 .reveal-init.in-view {
   opacity: 1 !important;
+  filter: blur(0px) !important;
   transform: translate3d(0, 0, 0) scale(1) rotate(0deg) !important;
 }
 
-/* 1. Prompts / Section Titles: Float in from Top-Left */
+/* 1. Prompts / Section Titles: Float in from Top-Left with cinematic glide */
 .prompt.reveal-init {
-  transform: translate3d(-35px, -20px, 0);
+  transform: translate3d(-50px, -24px, 0);
+  filter: blur(3px);
+  transition-duration: 1.15s;
 }
 
-/* 2. Hero Elements: Cascading rise from Bottom */
+/* 2. Hero Elements: Cascading rise from Bottom with smooth focus de-blur */
 .coder-status-bar.reveal-init {
-  transform: translate3d(-25px, 0, 0);
-  transition-delay: 0.05s;
+  transform: translate3d(-35px, 0, 0);
+  filter: blur(2px);
+  transition-delay: 0.08s;
+  transition-duration: 1.15s;
 }
 
 #hero-name.reveal-init {
-  transform: translate3d(0, 35px, 0) scale(0.96);
-  transition-delay: 0.10s;
+  transform: translate3d(0, 48px, 0) scale(0.93);
+  filter: blur(4px);
+  transition-delay: 0.16s;
+  transition-duration: 1.35s;
 }
 
 #hero .subtitle.reveal-init {
-  transform: translate3d(0, 25px, 0);
-  transition-delay: 0.16s;
+  transform: translate3d(0, 32px, 0);
+  filter: blur(2px);
+  transition-delay: 0.28s;
+  transition-duration: 1.2s;
 }
 
 #hero .philosophy.reveal-init {
-  transform: translate3d(0, 30px, 0);
-  transition-delay: 0.22s;
+  transform: translate3d(0, 36px, 0);
+  filter: blur(2px);
+  transition-delay: 0.38s;
+  transition-duration: 1.2s;
 }
 
 #hero .hero-actions.reveal-init {
-  transform: translate3d(0, 30px, 0);
-  transition-delay: 0.28s;
+  transform: translate3d(0, 36px, 0);
+  transition-delay: 0.48s;
+  transition-duration: 1.2s;
 }
 
-/* 3. Project Cards: Alternating Horizontal Ingress (Left & Right) */
+/* 3. Project Cards: Alternating Horizontal & 3D Depth Ingress (Left & Right) */
 .project-card.reveal-init:nth-child(odd) {
-  transform: translate3d(-65px, 0, 0) scale(0.95);
-  transition-delay: 0.05s;
+  transform: translate3d(-90px, 25px, 0) scale(0.92) rotate(-2deg);
+  filter: blur(5px);
+  transition-delay: 0.08s;
+  transition-duration: 1.28s;
 }
 
 .project-card.reveal-init:nth-child(even) {
-  transform: translate3d(65px, 0, 0) scale(0.95);
-  transition-delay: 0.12s;
+  transform: translate3d(90px, 25px, 0) scale(0.92) rotate(2deg);
+  filter: blur(5px);
+  transition-delay: 0.22s;
+  transition-duration: 1.28s;
 }
 
 /* 4. Education entries: Ingress from Alternating sides */
 .edu-entry.reveal-init:nth-child(1) {
-  transform: translate3d(-45px, 0, 0);
-  transition-delay: 0.06s;
+  transform: translate3d(-55px, 0, 0);
+  filter: blur(3px);
+  transition-delay: 0.10s;
+  transition-duration: 1.2s;
 }
 
 .edu-entry.reveal-init:nth-child(2) {
-  transform: translate3d(45px, 0, 0);
-  transition-delay: 0.14s;
+  transform: translate3d(55px, 0, 0);
+  filter: blur(3px);
+  transition-delay: 0.24s;
+  transition-duration: 1.2s;
 }
 
 /* 5. Contact Rows: Alternating Ingress from Left and Right */
 .contact-row.reveal-init:nth-child(1) {
-  transform: translate3d(-50px, 0, 0);
-  transition-delay: 0.05s;
+  transform: translate3d(-60px, 0, 0);
+  filter: blur(3px);
+  transition-delay: 0.08s;
+  transition-duration: 1.2s;
 }
 
 .contact-row.reveal-init:nth-child(2) {
-  transform: translate3d(50px, 0, 0);
-  transition-delay: 0.12s;
+  transform: translate3d(60px, 0, 0);
+  filter: blur(3px);
+  transition-delay: 0.22s;
+  transition-duration: 1.2s;
 }
 
 .contact-row.reveal-init:nth-child(3) {
-  transform: translate3d(-50px, 0, 0);
-  transition-delay: 0.19s;
+  transform: translate3d(-60px, 0, 0);
+  filter: blur(3px);
+  transition-delay: 0.36s;
+  transition-duration: 1.2s;
 }
 
-/* 6. Skills & Body text: Smooth float up */
+/* 6. Skills & Body text: Smooth float up with soft de-blur */
 .skill-group.reveal-init,
 #about p.reveal-init,
 #about ul.reveal-init,
 #teaching p.reveal-init,
 #teaching ul.reveal-init {
-  transform: translate3d(0, 30px, 0);
+  transform: translate3d(0, 42px, 0);
+  filter: blur(3px);
+  transition-duration: 1.25s;
 }
 
 /* Reduced motion accessibility */
@@ -598,8 +628,43 @@ li {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   transform-style: preserve-3d;
+  overflow: hidden;
+}
+
+/* Cursor-following radial light glow */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(79, 168, 255, 0.12),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="light"] .project-card::before {
+  background: radial-gradient(
+    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(29, 95, 191, 0.08),
+    transparent 55%
+  );
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .project-card::after {
@@ -609,7 +674,8 @@ li {
   right: 16px;
   font-size: 13px;
   color: var(--grey);
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.25s ease, transform 0.25s ease;
+  z-index: 3;
 }
 
 .project-card:hover {
@@ -626,7 +692,7 @@ li {
 }
 
 [data-theme="dark"] .project-card:hover {
-  box-shadow: inset 0 1px 0 rgba(79, 168, 255, 0.3), 0 12px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 1px 0 rgba(79, 168, 255, 0.35), 0 16px 40px rgba(0, 0, 0, 0.35);
 }
 
 .project-card .project-header {
