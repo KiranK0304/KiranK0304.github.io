@@ -1,4 +1,42 @@
   window.projectData = {
+    recruitment: {
+      name: 'Recruitment Platform & AI Screening Service',
+      tagline: 'Automated candidate screening & RAG Recruiter Copilot',
+      description: 'A production-grade recruitment platform and candidate screening engine. Engineered a decoupled Django backend with PostgreSQL persistence and JWT authentication for candidate profiles, job postings, and application lifecycle tracking. Built an automated candidate screening pipeline converting unstructured PDF/DOCX resumes into schema-validated JSON, executing rubric match scoring in under 5 seconds end-to-end. Integrated a Recruiter Copilot powered by RAG and semantic vector search over candidate embeddings with calibrated token bounds (800–1500 tokens); containerized across 3 microservices via multi-stage Docker builds on AWS EC2 behind an Nginx reverse proxy with SSL/TLS.',
+      highlights: [
+        'Engineered a decoupled Django backend with PostgreSQL persistence and JWT authentication for candidate profiles, job postings, and application lifecycle tracking',
+        'Built an automated candidate screening pipeline converting unstructured PDF/DOCX resumes into schema-validated JSON, executing rubric match scoring in under 5 seconds end-to-end',
+        'Integrated a Recruiter Copilot powered by RAG and semantic vector search over candidate embeddings with calibrated token bounds (800–1500 tokens)',
+        'Containerized 3 microservices via multi-stage Docker builds deployed on AWS EC2 behind an Nginx reverse proxy with SSL/TLS',
+        'Configured production cloud persistence with AWS RDS PostgreSQL, Docker Compose, and environment isolation'
+      ],
+      tech: ['Django', 'PostgreSQL', 'Docker', 'AWS EC2', 'Nginx', 'RAG', 'Embeddings', 'JWT', 'Python']
+    },
+    multiagent: {
+      name: 'Multi-Agent Decision Backend & Visual Pattern Analysis',
+      tagline: 'Cyclical 4-agent decision workflow & vision-based chart analysis',
+      description: 'An advanced quantitative trading and visual pattern analysis architecture. Features a FastAPI backend orchestrating a 4-agent cyclical decision workflow (orchestration, risk assessment, and thesis re-evaluation) with Pydantic-validated state schemas and dynamic tool/function calling. Automated headless chart extraction using Playwright with retry logic feeds computer vision models that detect technical price action chart patterns from rendered charts in real time. Streams multi-agent reasoning traces directly to frontend clients using Server-Sent Events (SSE).',
+      highlights: [
+        'Architected a FastAPI backend orchestrating a 4-agent cyclical decision workflow (orchestration, risk assessment, and thesis re-evaluation) with Pydantic-validated state schemas and function calling',
+        'Built an automated headless chart extraction pipeline using Playwright with retry logic for zero-disk in-memory vision inference',
+        'Served computer vision models to detect technical price action chart patterns from rendered charts in real time',
+        'Implemented Server-Sent Events (SSE) to stream multi-agent reasoning traces to frontend clients',
+        'Containerized inference services with Docker for scalable AWS deployment'
+      ],
+      tech: ['FastAPI', 'LangGraph', 'Vision Models', 'Playwright', 'Docker', 'SSE', 'Python', 'Pydantic']
+    },
+    marketpipeline: {
+      name: 'Real-Time Market Data & Quantitative ML Pipeline',
+      tagline: 'Asynchronous live tick ingestion, fault-tolerant streaming, and FinBERT signals',
+      description: 'An asynchronous live tick-ingestion pipeline via WebSockets, aggregating high-frequency trade feeds into 5-minute OHLC candles with boundary validation and sealed-state management. Engineered with a fault-tolerant streaming architecture featuring heartbeat monitoring, tick-starvation anomaly detection, automated socket reconnection, and REST backfill for continuous data integrity. Computes real-time technical indicators (rolling RSI, EMA) in-memory alongside an applied FinBERT sentiment model to generate composite risk-on/risk-off momentum signals.',
+      highlights: [
+        'Engineered an asynchronous live tick-ingestion pipeline via WebSockets, aggregating high-frequency trade feeds into 5-minute OHLC candles with boundary validation and sealed-state management',
+        'Built a fault-tolerant streaming architecture featuring heartbeat monitoring, tick-starvation anomaly detection, automated socket reconnection, and REST backfill for continuous data integrity',
+        'Computed real-time technical indicators (rolling RSI, EMA) in-memory alongside an applied FinBERT sentiment model to generate composite risk-on/risk-off momentum signals',
+        'Engineered PostgreSQL persistence with background sweeper processes auditing bar integrity and backfilling gaps'
+      ],
+      tech: ['Python', 'WebSockets', 'FinBERT', 'NumPy', 'Pandas', 'PostgreSQL', 'REST APIs', 'Transformers']
+    },
     trading: {
       name: 'Agentic Trading System',
       tagline: 'Multi-agent intelligence for financial markets',

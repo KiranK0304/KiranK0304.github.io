@@ -1,5 +1,903 @@
-@import url('css/base.css');
-@import url('css/layout.css');
-@import url('css/projects-modal.css');
-@import url('css/content.css');
-@import url('css/responsive.css');
+/* ==========================================================================
+   Kiran Kuruvila — Portfolio
+   "Blue Phosphor" CRT Theme (Dark + Light)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ==========================================================================
+   Two Themes: Dark (default) & Light
+   ========================================================================== */
+:root,
+[data-theme="dark"] {
+  --bg: #050810;
+  --panel: #0B1220;
+  --text: #D7E4F0;
+  --bright: #4FA8FF;   /* primary accent — phosphor blue */
+  --grey: #6B7C93;     /* secondary / muted text */
+  --gold: #FFB454;     /* second accent — amber, used sparingly */
+  --line: #1B2A3D;      /* hairline borders */
+}
+
+[data-theme="light"] {
+  --bg: #F4F7FB;
+  --panel: #FFFFFF;
+  --text: #1B2430;
+  --bright: #1D5FBF;   /* darker blue — keeps AA contrast on white */
+  --grey: #5B6B7D;
+  --gold: #A66A00;     /* darker amber — keeps AA contrast on white */
+  --line: #D7DEE7;
+}
+
+/* ==========================================================================
+   Base Reset & Typography
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  position: relative;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+p, span, a, button, input, li {
+  font-family: 'Space Mono', monospace;
+}
+
+a {
+  color: var(--bright);
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.85;
+}
+
+::selection {
+  background: var(--bright);
+  color: var(--bg);
+}
+
+/* ==========================================================================
+   CRT Effects — Dark Theme Only
+   ========================================================================== */
+[data-theme="dark"] body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.4) 2px,
+    rgba(0, 0, 0, 0.4) 3px
+  );
+  opacity: 0.2;
+  mix-blend-mode: multiply;
+}
+
+[data-theme="light"] body::before {
+  display: none;
+}
+
+/* Phosphor glow on headlines & key accents */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] #hero-name,
+[data-theme="dark"] .prompt .cmd,
+[data-theme="dark"] .project-card:hover .project-name,
+[data-theme="dark"] .nav a.active {
+  text-shadow: 0 0 10px rgba(79, 168, 255, 0.5), 0 0 20px rgba(79, 168, 255, 0.25);
+}
+
+[data-theme="light"] h1,
+[data-theme="light"] h2,
+[data-theme="light"] #hero-name,
+[data-theme="light"] .prompt .cmd,
+[data-theme="light"] .project-card:hover .project-name,
+[data-theme="light"] .nav a.active {
+  text-shadow: none;
+}
+
+/* Reduced motion guards */
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="dark"] body::before {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Navigation Bar (Larger, prominent, comfortable touch targets)
+   ========================================================================== */
+.nav {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: calc(100vw - 28px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nav a {
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--grey);
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.nav a::before {
+  content: none !important;
+}
+
+.nav a:hover,
+.nav a.active {
+  color: var(--bright);
+  background: var(--bg);
+  opacity: 1;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  white-space: nowrap;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--bright);
+  color: var(--bright);
+}
+
+/* Hide terminal popup & side deco buttons */
+.nav-terminal-btn,
+.terminal-backdrop,
+.floating-terminal,
+.page-titlebar,
+.side-panel {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Page Layout & Container
+   ========================================================================== */
+.page-wrapper {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 96px 20px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.page-shell {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.page-shell::after {
+  display: none !important;
+}
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: var(--bright);
+  z-index: 10000;
+  transition: width 0.08s ease-out;
+}
+
+.page-content {
+  padding: 44px 44px 32px;
+}
+
+/* Section dividers */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 44px 0;
+}
+
+/* ==========================================================================
+   Sections & Content
+   ========================================================================== */
+section {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Section Headings */
+.prompt {
+  margin-bottom: 20px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.prompt .cmd {
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+  color: var(--bright);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  visibility: visible !important;
+}
+
+.prompt .cmd::before,
+.prompt .cmd::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Output containers */
+.output {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Hero Section */
+#hero {
+  padding-top: 4px;
+}
+
+#hero-name {
+  font-family: 'VT323', monospace;
+  font-size: 56px;
+  color: var(--bright);
+  letter-spacing: 2px;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  visibility: visible !important;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--gold);
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+}
+
+.philosophy {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  max-width: 700px;
+}
+
+.philosophy .cursor {
+  display: none !important;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.hero-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  transition: border-color 0.2s ease, color 0.2s ease;
+  min-height: 42px;
+}
+
+.hero-actions a:hover {
+  border-color: var(--bright);
+  color: var(--bright);
+  opacity: 1;
+}
+
+/* Quick Navigation Links (clean pills) */
+.command-shortcuts {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 20px;
+}
+
+.command-shortcuts-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.command-shortcuts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.command-shortcut {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-family: 'Space Mono', monospace;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.command-shortcut:hover {
+  border-color: var(--bright);
+  transform: translateY(-1px);
+}
+
+.shortcut-command {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--bright);
+}
+
+.shortcut-desc {
+  font-size: 11px;
+  color: var(--grey);
+}
+
+/* Paragraphs & General Lists */
+p {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+ul {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.8;
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Education Section */
+.edu-entry {
+  border-left: 2px solid var(--bright);
+  padding-left: 16px;
+  margin-bottom: 20px;
+}
+
+.edu-entry:last-child {
+  margin-bottom: 0;
+}
+
+.edu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.edu-degree {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.edu-year {
+  font-size: 13px;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.edu-school {
+  font-size: 13px;
+  color: var(--grey);
+  margin-top: 4px;
+}
+
+/* Teaching Section */
+.teaching-list {
+  margin-top: 10px;
+}
+
+.teaching-list li::before {
+  content: none !important;
+}
+
+/* ==========================================================================
+   Project Grid & Cards
+   ========================================================================== */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.project-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card::after {
+  content: '↗';
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-size: 12px;
+  color: var(--grey);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: var(--bright);
+  transform: translateY(-2px);
+}
+
+.project-card:hover::after {
+  color: var(--bright);
+  transform: translate(2px, -2px);
+}
+
+[data-theme="dark"] .project-card:hover {
+  box-shadow: 0 0 16px rgba(79, 168, 255, 0.12);
+}
+
+.project-card .project-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding-right: 20px;
+}
+
+.project-card .project-name {
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  color: var(--bright);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.project-card .project-name::before {
+  content: none !important;
+}
+
+.project-card .project-tech {
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.project-card .project-desc {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Skills Section
+   ========================================================================== */
+.skill-group {
+  margin-bottom: 22px;
+}
+
+.skill-group .group-label {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-tag {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.skill-tag:hover {
+  border-color: var(--bright);
+  color: var(--bright);
+}
+
+/* ==========================================================================
+   Contact & Footer Section
+   ========================================================================== */
+.page-footer {
+  padding-top: 8px;
+}
+
+.contact-rows {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  min-height: 52px;
+}
+
+.contact-row:hover {
+  border-color: var(--bright);
+  opacity: 1;
+}
+
+.contact-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--grey);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-value {
+  font-size: 13px;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-action {
+  font-size: 12px;
+  color: var(--bright);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.contact-action::after {
+  content: ' ↗';
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--line);
+  margin: 24px auto;
+}
+
+.tagline {
+  font-size: 13px;
+  color: var(--grey);
+  text-align: center;
+  margin-top: 24px;
+  font-style: italic;
+}
+
+/* Status Bar */
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  border-top: 1px solid var(--line);
+  background: var(--panel);
+  font-size: 12px;
+  color: var(--grey);
+}
+
+.status-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bright);
+}
+
+.status-label {
+  color: var(--text);
+}
+
+.status-separator {
+  color: var(--line);
+}
+
+/* ==========================================================================
+   Project Detail Modal
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 16, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal-window {
+  background: var(--panel);
+  border: 1px solid var(--bright);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 660px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .modal-window {
+  box-shadow: 0 0 30px rgba(79, 168, 255, 0.18);
+}
+
+.modal-titlebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-title-text {
+  font-family: 'VT323', monospace;
+  font-size: 26px;
+  color: var(--bright);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.modal-close-btn,
+#modal-close {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--grey);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.modal-close-btn:hover,
+#modal-close:hover {
+  border-color: var(--bright);
+  color: var(--bright);
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+.modal-project-name {
+  font-family: 'VT323', monospace;
+  font-size: 32px;
+  color: var(--bright);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.modal-tagline {
+  font-size: 13px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.modal-body p {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.modal-body h4 {
+  font-family: 'VT323', monospace;
+  font-size: 22px;
+  color: var(--bright);
+  margin: 18px 0 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.modal-body ul {
+  padding-left: 20px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.modal-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.modal-tech-tag {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--bright);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+@media (max-width: 768px) {
+  .page-wrapper {
+    padding: 80px 14px 40px;
+  }
+
+  .page-content {
+    padding: 24px 16px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #hero-name {
+    font-size: 42px;
+  }
+
+  .nav {
+    max-width: calc(100vw - 20px);
+    padding: 4px 8px;
+  }
+
+  .nav a {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .theme-toggle-btn {
+    padding: 7px 12px;
+    font-size: 12px;
+  }
+
+  .contact-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .contact-action {
+    margin-top: 4px;
+  }
+
+  .status-bar {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}

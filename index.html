@@ -6,7 +6,17 @@
   <title>Kiran Kuruvila — ML &amp; Systems Developer</title>
   <meta name="description" content="Portfolio of Kiran Kuruvila — Data-focused Machine Learning Engineer building intelligent, reliable systems from first principles.">
   <meta name="author" content="Kiran Kuruvila">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const initial = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-theme', initial);
+    })();
+  </script>
 </head>
 <body>
 
@@ -18,8 +28,9 @@
     <a href="#contact">contact</a>
     <a href="https://github.com/KiranK0304" target="_blank" rel="noopener noreferrer">github</a>
     <a href="assets/kiran-kuruvila-resume.pdf" target="_blank" rel="noopener noreferrer">resume</a>
-    <button class="theme-toggle-btn" id="theme-toggle" type="button" title="Switch to dark mode" aria-label="Switch to dark mode">☾</button>
-    <button class="nav-terminal-btn" id="toggle-terminal" title="Open terminal">&gt;_</button>
+    <button class="theme-toggle-btn" id="theme-toggle" type="button" aria-label="Toggle theme">
+      <span id="theme-toggle-label">Light</span>
+    </button>
   </nav>
 
   <!-- ===== Terminal Backdrop ===== -->
@@ -82,7 +93,7 @@
         <section id="hero">
           <div class="prompt"><span class="cmd" data-cmd="whoami">whoami</span></div>
           <div class="output">
-            <h2 id="hero-name" data-text="Kiran Kuruvila" style="visibility:hidden;">Kiran Kuruvila</h2>
+            <h2 id="hero-name" data-text="Kiran Kuruvila">Kiran Kuruvila</h2>
           </div>
 
           <div class="prompt"><span class="cmd" data-cmd="role">role</span></div>
@@ -184,6 +195,30 @@
           <div class="prompt"><span class="cmd" data-cmd="ls ~/projects">ls ~/projects</span></div>
           <div class="output">
             <div class="project-grid">
+
+              <div class="project-card" data-project="recruitment">
+                <div class="project-header">
+                  <span class="project-name">Recruitment Platform &amp; AI Screening Service</span>
+                  <span class="project-tech">Django, PostgreSQL, Docker, AWS, RAG</span>
+                </div>
+                <p class="project-desc">Decoupled Django backend, sub-5s rubric resume parser, and RAG Recruiter Copilot deployed on AWS EC2.</p>
+              </div>
+
+              <div class="project-card" data-project="multiagent">
+                <div class="project-header">
+                  <span class="project-name">Multi-Agent Decision Backend &amp; Visual Pattern Analysis</span>
+                  <span class="project-tech">FastAPI, LangGraph, Vision, SSE</span>
+                </div>
+                <p class="project-desc">Cyclical 4-agent decision workflow, Playwright headless chart extraction, vision pattern models, and SSE traces.</p>
+              </div>
+
+              <div class="project-card" data-project="marketpipeline">
+                <div class="project-header">
+                  <span class="project-name">Real-Time Market Data &amp; Quantitative ML Pipeline</span>
+                  <span class="project-tech">WebSockets, FinBERT, Pandas, REST</span>
+                </div>
+                <p class="project-desc">Asynchronous WebSocket tick ingestion, 5-min OHLC candle aggregation, and composite FinBERT momentum signals.</p>
+              </div>
 
               <div class="project-card" data-project="trading">
                 <div class="project-header">
@@ -295,93 +330,80 @@
               <div class="group-label">Languages</div>
               <div class="skill-tags">
                 <span class="skill-tag">Python</span>
+                <span class="skill-tag">Java</span>
                 <span class="skill-tag">SQL</span>
               </div>
             </div>
 
             <div class="skill-group">
-              <div class="group-label">Frameworks</div>
+              <div class="group-label">Backend &amp; Streaming</div>
+              <div class="skill-tags">
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Django</span>
+                <span class="skill-tag">Django ORM</span>
+                <span class="skill-tag">RESTful APIs</span>
+                <span class="skill-tag">WebSockets</span>
+                <span class="skill-tag">Server-Sent Events (SSE)</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">MySQL</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <div class="group-label">Machine Learning &amp; Deep Learning</div>
               <div class="skill-tags">
                 <span class="skill-tag">PyTorch</span>
+                <span class="skill-tag">Transformers</span>
+                <span class="skill-tag">Vision Transformers (ViT)</span>
+                <span class="skill-tag">YOLOv8</span>
+                <span class="skill-tag">CNNs</span>
+                <span class="skill-tag">RNNs / LSTMs</span>
+                <span class="skill-tag">scikit-learn</span>
                 <span class="skill-tag">NumPy</span>
                 <span class="skill-tag">Pandas</span>
-                <span class="skill-tag">scikit-learn</span>
-                <span class="skill-tag">Django</span>
               </div>
             </div>
 
             <div class="skill-group">
-              <div class="group-label">Machine Learning</div>
-              <div class="skill-tags">
-                <span class="skill-tag">Transformers</span>
-                <span class="skill-tag">CNNs</span>
-                <span class="skill-tag">RNNs</span>
-                <span class="skill-tag">LSTMs</span>
-                <span class="skill-tag">Reinforcement Learning</span>
-                <span class="skill-tag">Feature Engineering</span>
-                <span class="skill-tag">YOLOv8</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="group-label">LLM Systems</div>
+              <div class="group-label">LLM &amp; Agentic AI</div>
               <div class="skill-tags">
                 <span class="skill-tag">LangGraph</span>
-                <span class="skill-tag">Prompt Engineering</span>
-                <span class="skill-tag">Agent Workflows</span>
                 <span class="skill-tag">RAG</span>
+                <span class="skill-tag">Semantic Vector Search</span>
+                <span class="skill-tag">Embeddings</span>
+                <span class="skill-tag">Function Calling</span>
+                <span class="skill-tag">Structured State (Pydantic)</span>
+                <span class="skill-tag">Agent Workflows</span>
               </div>
             </div>
 
             <div class="skill-group">
-              <div class="group-label">Data Engineering</div>
-              <div class="skill-tags">
-                <span class="skill-tag">Data Pipelines</span>
-                <span class="skill-tag">ETL</span>
-                <span class="skill-tag">Data Processing</span>
-                <span class="skill-tag">Data Warehouse Concepts</span>
-                <span class="skill-tag">MySQL</span>
-                <span class="skill-tag">yfinance</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="group-label">MLOps</div>
-              <div class="skill-tags">
-                <span class="skill-tag">Model Deployment</span>
-                <span class="skill-tag">MLflow</span>
-                <span class="skill-tag">Docker</span>
-                <span class="skill-tag">AWS ECR</span>
-              </div>
-            </div>
-
-            <div class="skill-group">
-              <div class="group-label">Cloud</div>
+              <div class="group-label">Cloud &amp; DevOps</div>
               <div class="skill-tags">
                 <span class="skill-tag">AWS EC2</span>
-                <span class="skill-tag">RDS</span>
-                <span class="skill-tag">ECR</span>
-                <span class="skill-tag">EFS</span>
-                <span class="skill-tag">EKS</span>
+                <span class="skill-tag">AWS RDS</span>
+                <span class="skill-tag">AWS ECR</span>
+                <span class="skill-tag">Docker (Multi-stage)</span>
                 <span class="skill-tag">Nginx</span>
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Postman</span>
               </div>
             </div>
 
             <div class="skill-group">
               <div class="group-label">Mathematics</div>
               <div class="skill-tags">
-                <span class="skill-tag">Probability</span>
-                <span class="skill-tag">Statistics</span>
                 <span class="skill-tag">Linear Algebra</span>
-                <span class="skill-tag">Calculus</span>
+                <span class="skill-tag">Multivariate Calculus</span>
+                <span class="skill-tag">Probability &amp; Statistics</span>
+                <span class="skill-tag">Stochastic Processes</span>
               </div>
             </div>
 
             <div class="skill-group">
-              <div class="group-label">Tools</div>
+              <div class="group-label">Tools &amp; Automation</div>
               <div class="skill-tags">
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">Linux</span>
                 <span class="skill-tag">Playwright</span>
                 <span class="skill-tag">Cron</span>
                 <span class="skill-tag">Telegram Bot API</span>
@@ -460,10 +482,8 @@
   <div class="modal-overlay" id="project-modal">
     <div class="modal-window">
       <div class="modal-titlebar">
-        <div class="titlebar-dots" id="modal-close" role="button" tabindex="0" aria-label="Close modal">
-          <span></span><span></span><span></span>
-        </div>
         <span class="modal-title-text" id="modal-title">project detail</span>
+        <button class="modal-close-btn" id="modal-close" type="button" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-body" id="modal-body"></div>
     </div>
